@@ -1,4 +1,6 @@
 ---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import DogPics from "../components/DogPics.astro";
 const name = "Aaron";
 const imageError =
   "https://www.publicdomainpictures.net/pictures/190000/nahled/sad-dog-1468499671wYW.jpg";
@@ -7,28 +9,15 @@ const data = await res.json();
 const dogImageUrls = data?.message ?? [imageError];
 ---
 
-<html lang="en">
-  <head>
-    <meta charset="utf-8" />
-    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-    <meta name="viewport" content="width=device-width" />
-    <meta name="generator" content={Astro.generator} />
-    <title>Astro</title>
-  </head>
-
-  <body>
-    <h1>{name}</h1>
-    {
-      dogImageUrls.map((url: string) => (
-        <img src={url} alt="Random dog" style="max-width:400px;height:auto" />
-      ))
-    }
-    <div>
-      <button id="cat-image-button">Get cat image</button>
-    </div>
-    <div><img id="cat-image" style="max-width:400px;height:auto" /></div>
-  </body>
-</html>
+<BaseLayout title="Home">
+  <h1>{name}</h1>
+  <DogPics urls={dogImageUrls} />
+  <div>
+    <button id="cat-image-button">Get cat image</button>
+  </div>
+  <div><img id="cat-image" style="max-width:400px;height:auto" /></div>
+  <a href="/about">About</a>
+</BaseLayout>
 <script>
   import { setupCatFactButton } from "./cat";
   setupCatFactButton();
